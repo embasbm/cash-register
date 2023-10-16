@@ -97,6 +97,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
+    ffi (1.16.3)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
     formtastic_i18n (0.7.0)
@@ -240,6 +241,8 @@ GEM
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
     ruby2_keywords (0.0.5)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -285,6 +288,7 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   rspec-rails
+  sassc
   sprockets-rails
   stimulus-rails
   turbo-rails
