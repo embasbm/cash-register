@@ -1,9 +1,21 @@
 ## Notes
+### Running in local
+1. ```bundle```
+2. ```rake db:setup```
+3. ```bin/rails db:migrate```
+4. ```rails s``` and check  http://127.0.0.1:3000/ for results
+5. To run the specs/tests locally: 
+    - ```rspec```
+
+
 ### Infrastructure choice
 * Due the fact we applying for a RoR dev role, we have decided to implement the challente solution with Ruby On Rails application, which will handle all data model, logic and testing.
-* Test: to get started and develop the product following the TDD methodology, we will add Rspec and related gems: factory_bot_rails, faker, to make life easier. We might not use some of them right now, but, honestly, we think it's no hassle to have them included.
+* **Test**: to get started and develop the product following the TDD methodology, we will add Rspec and related gems: factory_bot_rails, faker, to make life easier. We might not use some of them right now, but, honestly, we think it's no hassle to have them included.
 Pack to make testing easier. Might not use some of them, but it's not hassle to have them within the dev+test environment part 
-
+* **Back office**: for admin purposes we will use active admin, all this without having users and autentication setup, because we consider this is out of scope, even it would be the first next task to implement. This is merely for show/demo purposes, and to access it we can use: http://localhost:3000/admin.
+    `- It has a UI, where the user is able to add products to a cart and compute the total price (it can be a simple CLI)`
+    * User: admin@example.com
+    * Password: password
 # Technical Evaluation Amenitiz Problem to Solve
 
 You are the developer in charge of building a cash register. 
@@ -15,7 +27,7 @@ This app will be able to add products to a cart and compute the total price.
 Build an application responding to these needs. 
 
 By application, we mean:
-- It has a UI, where the user is able to add products to a cart and compute the total price (it can be a simple CLI)
+- ~~It has a UI, where the user is able to add products to a cart and compute the total price (it can be a simple CLI)~~
 - It is usable while remaining as simple as possible
 - It is readable
 - It is maintainable
