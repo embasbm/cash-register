@@ -18,6 +18,10 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
     * Password: password
 * **Money type**: since we have some model that handles money/currency column, we are considering adding a new gem to hanlde money values (money-rails)
 
+### Data model
+ - **Product**:  We have defined a Product model to represent the products with attributes like code, name, and price. We using a library `money-rails` to manage the value of the column *price*. 
+  
+ 
 # Technical Evaluation Amenitiz Problem to Solve
 
 You are the developer in charge of building a cash register. 
