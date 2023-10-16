@@ -16,6 +16,8 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
     `- It has a UI, where the user is able to add products to a cart and compute the total price (it can be a simple CLI)`
     * User: admin@example.com
     * Password: password
+* **Money type**: since we have some model that handles money/currency column, we are considering adding a new gem to hanlde money values (money-rails)
+
 # Technical Evaluation Amenitiz Problem to Solve
 
 You are the developer in charge of building a cash register. 
