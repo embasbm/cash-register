@@ -17,6 +17,7 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
     * User: admin@example.com
     * Password: password
 * **Money type**: since we have some model that handles money/currency column, we are considering adding a new gem to hanlde money values (money-rails)
+* **Devise**: It a very wel knowd library used generally to manage user authentications. This will be handy to later on associate *Cart* model to each user signed in while shopping/buying.
 
 ### Data model
  - **Product**:  We have defined a Product model to represent the products with attributes like code, name, and price. We using a library `money-rails` to manage the value of the column *price*. 
