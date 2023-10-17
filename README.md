@@ -20,7 +20,8 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
 
 ### Data model
  - **Product**:  We have defined a Product model to represent the products with attributes like code, name, and price. We using a library `money-rails` to manage the value of the column *price*. 
-  
+ - **Cart**: so far it a very simple table where we will store the final amount the customer has to pay, we are using Money Rails package for this value as well.
+ - **LineItem**: this is an inner table/model to implement the association between Cart and Product while holding the amount of each product within a single cart
  
 # Technical Evaluation Amenitiz Problem to Solve
 

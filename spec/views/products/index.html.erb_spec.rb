@@ -6,12 +6,14 @@ RSpec.describe "products/index", type: :view do
       Product.create!(
         code: "Code",
         name: "Name",
-        price_cents: 2
+        price_cents: 2,
+        amount: 10
       ),
       Product.create!(
         code: "Code",
         name: "Name",
-        price_cents: 2
+        price_cents: 2,
+        amount: 10
       )
     ])
   end
