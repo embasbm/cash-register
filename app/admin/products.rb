@@ -1,3 +1,3 @@
 ActiveAdmin.register Product do
-  permit_params :code, :name, :price_cents
+  permit_params :code, :name, :price_cents, :amount
 end
