@@ -3,7 +3,15 @@
 <h1>Products</h1>
 
 <div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-  <% end %>
+  <table border="1">
+      <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+      </tr>
+      <% @products.each do |product| %>
+        <%= render product %>
+      <% end %>
+  </table>
 </div>

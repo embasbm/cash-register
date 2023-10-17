@@ -1,8 +1,6 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <%= product.code %>
-    <%= product.name %>
-    <%= humanized_money_with_symbol(product.price) %>
-    <%= product.amount %>
-  </p>
-</div>
+<tr id="<%= dom_id product %>">
+  <td><%= product.code %></td>
+  <td><%= product.name %></td>
+  <td><%= humanized_money_with_symbol(product.price) %></td>
+  <td><%= product.amount %></td>
+</tr>
