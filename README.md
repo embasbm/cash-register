@@ -23,6 +23,8 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
  - **Product**:  We have defined a Product model to represent the products with attributes like code, name, and price. We using a library `money-rails` to manage the value of the column *price*. 
  - **Cart**: so far it a very simple table where we will store the final amount the customer has to pay, we are using Money Rails package for this value as well.
  - **LineItem**: this is an inner table/model to implement the association between Cart and Product while holding the amount of each product within a single cart
+ - **AdminUser**: admin to manage back office: "admin@example.com" - "password"
+ - **User**: user to do the shopping: "user@example.com" - "password"
  
 # Technical Evaluation Amenitiz Problem to Solve
 
