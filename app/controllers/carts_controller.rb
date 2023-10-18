@@ -4,11 +4,12 @@ class CartsController < ApplicationController
   def add_to_cart
     product = Product.find(params[:product_id])
     line_item = @cart.line_items.find_by(product: product)
-
     if line_item
       line_item.update!(quantity: line_item.quantity + 1)
+      flash[:success] = 'Product quantity added to the cart successfully'
     else
       @cart.line_items.create!(product: product, quantity: 1)
+      flash[:success] = 'Product added to the cart successfully'
     end
 
     # @cart.settle_total_price!
