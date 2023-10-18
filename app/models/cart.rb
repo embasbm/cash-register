@@ -1,5 +1,6 @@
 class Cart < ApplicationRecord
   has_many :line_items
+  belongs_to :user
 
   monetize :total_price, as: "total_amount"
 

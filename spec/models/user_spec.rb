@@ -47,4 +47,9 @@ RSpec.describe User, type: :model do
     user = build(:user)
     expect(user).to be_valid
   end
+
+  it 'has one cart' do
+    user = User.reflect_on_association(:cart)
+    expect(user.macro).to eq(:has_one)
+  end
 end

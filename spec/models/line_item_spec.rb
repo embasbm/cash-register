@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe LineItem, type: :model do
+  let!(:user) { create(:user)}
   let!(:cart) { create(:cart)}
   let!(:product) { create(:product)}
 
