@@ -18,7 +18,7 @@ class CartsController < ApplicationController
 
   private
   def set_cart
-    @cart = current_user.cart.present? ? current_user.cart : Cart.new(user: current_user) 
+    @cart = current_user.cart.present? ? current_user.cart : Cart.create!(user: current_user, total_price: 0)
   end
 
   def carts_params

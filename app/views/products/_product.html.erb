@@ -3,4 +3,10 @@
   <td><%= product.name %></td>
   <td><%= humanized_money_with_symbol(product.price) %></td>
   <td><%= product.amount %></td>
+  <td>
+    <form id="add-to-cart-form" method="POST" action="/carts/add_to_cart">
+      <input type="hidden" name="product_id" value="<%= product.id %>">
+      <button type="submit">Add to Cart</button>
+    </form>
+  </td>
 </tr>

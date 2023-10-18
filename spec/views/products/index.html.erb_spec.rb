@@ -24,5 +24,6 @@ RSpec.describe "products/index", type: :view do
     assert_select cell_selector, text: Regexp.new("Code".to_s), count: 2
     assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2
     assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
+    assert_select cell_selector, text: Regexp.new('Add to Cart'), count: 2
   end
 end
