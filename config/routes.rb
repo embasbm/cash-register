@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :products, only: :index
+  post 'carts/add_to_cart'
 
   root "products#index"
 end
