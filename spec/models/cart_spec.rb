@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
+  let!(:user) { create(:user)}
   let(:cart) { create(:cart)}
 
   it 'will have total_amount column as Money class' do
@@ -22,5 +23,10 @@ RSpec.describe Cart, type: :model do
     it 'will not be valid' do
       expect(cart).not_to be_valid
     end
+  end
+
+  it 'belongs to a user' do
+    cart = Cart.reflect_on_association(:user)
+    expect(cart.macro).to eq(:belongs_to)
   end
 end
