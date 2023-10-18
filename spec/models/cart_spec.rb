@@ -46,5 +46,12 @@ RSpec.describe Cart, type: :model do
       cart.save
       expect(cart.reload.total_price).to eq(2*product.price_cents)
     end
+
+    context 'line_items has not changed' do
+      it 'will not call the #calculate_total_price' do
+        expect(cart).not_to receive(:calculate_total_price)
+        cart.save
+      end
+    end
   end
 end
