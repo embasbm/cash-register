@@ -1,18 +1,22 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Products</h1>
-
 <div id="products">
-  <table border="1">
-      <tr>
-          <th>Code</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Stock (Amount)</th>
-      </tr>
-      <% @products.each do |product| %>
-        <% next if product.amount <= 0 %>
-        <%= render product %>
-      <% end %>
-  </table>
+  <% if @stock_available %>
+    <table border="1">
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock (Amount)</th>
+        </tr>
+        <% @products.each do |product| %>
+          <% next if product.amount <= 0 %>
+          <%= render product %>
+        <% end %>
+    </table>
+
+  <% else %>
+    <p>No products available for now</p>
+  <% end %>
 </div>
