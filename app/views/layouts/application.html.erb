@@ -21,13 +21,15 @@
       <% end %>
     </nav>
 
-    <p>
-      <% flash.each do |type, msg| %>
-        <div>
-          <%= msg %>
-        </div>
+    <div data-controller="flash-messages">
+      <% flash.each do |key, value| %>
+        <turbo-frame id="flash-frame" data-turbo-frame="flash-frame">
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        </turbo-frame>
       <% end %>
-    </p>
+    </div>
 
     <%= yield %>
   </body>
