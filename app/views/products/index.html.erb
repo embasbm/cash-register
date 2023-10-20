@@ -19,3 +19,13 @@
     </div>
   <% end %>
 </div>
+
+<hr>
+
+<% if current_user.cart %>
+  <div id="cart">
+    <div class="cart" >
+      <strong>Total: <%= current_user.cart.total_amount.to_s %></strong>
+    </div>
+  </div>
+<% end %>
