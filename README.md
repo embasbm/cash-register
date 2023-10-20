@@ -3,8 +3,9 @@
 1. ```bundle```
 2. ```rake db:setup```
 3. ```bin/rails db:migrate```
-4. ```rails s``` and check  http://127.0.0.1:3000/ for results
-5. To run the specs/tests locally: 
+4. ```rails assets:precompile```
+5. ```rails s``` and check  http://127.0.0.1:3000/ for results
+6. To run the specs/tests locally: 
     - ```rspec```
 
 
