@@ -1,6 +1,6 @@
 <h1>Products</h1>
 <div id="products">
-  <% if @stock_available %>
+  <% if @products.present? %>
     <table border="1">
         <tr>
             <th>Code</th>
@@ -13,8 +13,9 @@
           <%= render product %>
         <% end %>
     </table>
-
   <% else %>
-    <p>No products available for now</p>
+    <div class="alert alert-alert">
+      <p>No products available for now</p>
+    </div>
   <% end %>
 </div>

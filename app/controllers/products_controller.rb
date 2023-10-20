@@ -2,7 +2,7 @@ class ProductsController < InheritedResources::Base
   before_action :authenticate_user!
 
   def index
-    @stock_available = Product.all.any? { |p| p.amount > 0}
+    @products = Product.all.select { |p| p.amount > 0 }
     super
   end
 
