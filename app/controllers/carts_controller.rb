@@ -16,7 +16,7 @@ class CartsController < ApplicationController
     flash[:success].clear
     flash[:error] = e.message
   ensure
-    # @cart.settle_total_price!
+    @cart.settle_total_price!
     redirect_to root_path
   end
 
