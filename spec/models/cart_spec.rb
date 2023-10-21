@@ -54,4 +54,43 @@ RSpec.describe Cart, type: :model do
       end
     end
   end
+
+  describe '#settle_total_price' do
+    before do
+      ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
+        create(:product, name: product_name)
+      end
+    end
+
+    subject { cart.settle_total_price! }
+
+    ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
+      context "when one single #{product_name} in cart" do
+        before { create(:line_item, cart: cart, product: Product.find_by_name(product_name)) }
+
+        it 'cart total_amount will be the product value' do
+          subject
+
+          expect(cart.reload.total_price).to eq Product.find_by_name(product_name).price_cents
+        end
+      end
+
+      context "when 4 #{product_name} item in cart" do
+        let!(:line_item) { create(:line_item, cart: cart, product: Product.find_by_name(product_name), quantity: 4) }
+
+        it 'cart total_amount will be the product value' do
+          subject
+
+          if product_name == 'Strawberries'
+            expect(cart.reload.total_amount.to_s).to eq ('18.00') # [4 * 450] (450 is the new price when quantity 3 or more)
+          elsif product_name == 'Coffee'
+            expect(cart.reload.total_amount.to_s).to eq ('4.15') # [311 * 4 - 311 * 4 * 2/3] (311 is the product price)
+          else # product_name == 'Green Tea'
+            expect(cart.reload.total_amount.to_s).to eq ('12.44') # [4 * 311] (311 is the product price)
+            expect(line_item.reload.quantity).to eq 8 # We doubling Green Tea; buy one get one free
+          end
+        end
+      end
+    end
+  end  
 end
