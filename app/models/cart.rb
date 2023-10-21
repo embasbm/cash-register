@@ -1,6 +1,9 @@
 class Cart < ApplicationRecord
   belongs_to :user
-  has_many :line_items, before_add: :calculate_total_price, before_remove: :calculate_total_price
+  has_many :line_items,
+    dependent: :destroy,
+    before_add: :calculate_total_price,
+    before_remove: :calculate_total_price
 
   monetize :total_price, as: "total_amount"
 
@@ -34,6 +37,14 @@ class Cart < ApplicationRecord
     end
 
     save!
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "total_price", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["line_items", "user"]
   end
 
   private
