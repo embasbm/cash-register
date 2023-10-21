@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Carts", type: :request do
-  let!(:product) { create(:product) }
+  let!(:product) { create(:product, name: 'Foo') }
   let!(:user) { create(:user) }
 
   before {

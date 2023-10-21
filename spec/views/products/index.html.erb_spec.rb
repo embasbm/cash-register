@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "products/index", type: :view do
+  before { allow(view).to receive(:current_user).and_return(current_user) }
+  let!(:current_user) { create(:user) }
+
   context 'when stock available' do
     before do
       assign(:products, [
@@ -19,7 +22,6 @@ RSpec.describe "products/index", type: :view do
         expect(page).to have_selector("th", text: "Price")
         expect(page).to have_selector("th", text: "Stock (Amount)")
 
-        # Verify that only the product with a positive amount is displayed
         expect(page).to have_selector("td", text: "Code1")
         expect(page).to have_selector("td", text: "Product1")
         expect(page).to have_selector("td", text: "200")

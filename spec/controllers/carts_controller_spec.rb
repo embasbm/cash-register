@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
   let(:user) { create(:user) }
-  let(:product) { create(:product) }
+  let(:product) { create(:product, name: 'Foo') }
 
   before do
     sign_in user
