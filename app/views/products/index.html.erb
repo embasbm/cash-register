@@ -44,6 +44,10 @@
 
     <div class="cart" >
       <strong>Total: <%= @cart.total_amount.to_s %></strong>
+      <form id="reset-cart-form" method="DELETE" action='<%= "/carts/#{@cart.id}" %>'>
+          <button class="alert-alert" type="submit">Reset Cart</button>
+        </div>
+      </form>
     </div>
   </div>
 <% end %>

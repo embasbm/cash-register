@@ -2,7 +2,7 @@ class ProductsController < InheritedResources::Base
   before_action :authenticate_user!
 
   def index
-    @products = Product.all.select { |p| p.amount > 0 }
+    @products = Product.all.select { |p| p.amount > 0 }.sort_by {|p| p.code}
     @cart = current_user.cart
     super
   end

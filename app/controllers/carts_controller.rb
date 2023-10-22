@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: :add_to_cart
+  before_action :set_cart, only: [:add_to_cart, :destroy]
   before_action :set_product, only: [:add_to_cart, :update_product_amount]
 
   def add_to_cart
@@ -17,6 +17,17 @@ class CartsController < ApplicationController
     flash[:error] = e.message
   ensure
     @cart.settle_total_price!
+    redirect_to root_path
+  end
+
+  def destroy
+    @cart.line_items.map do |line_item|
+      line_item.product.amount += line_item.quantity
+      line_item.product.save
+    end
+
+    @cart.destroy
+
     redirect_to root_path
   end
 

@@ -10,10 +10,9 @@ RSpec.describe CartsController, type: :controller do
     sign_in user
   end
 
-  subject { post :add_to_cart, params: { product_id: product.id } }
-
   describe 'POST #add_to_cart' do
-    
+    subject { post :add_to_cart, params: { product_id: product.id } }
+
     context 'when adding a product to the cart' do
       it 'increases the line item quantity when the product is already in the cart' do
         cart = create(:cart, user: user)
@@ -56,6 +55,19 @@ RSpec.describe CartsController, type: :controller do
           expect(flash[:error]).to eq('Validation failed: Amount must be greater than or equal to 0')
         end
       end
+    end
+  end
+
+  describe '#destroy' do
+    let!(:cart) { create(:cart, user: user) }
+    let!(:line_item) { create(:line_item, cart: cart, product: product) }
+
+    it 'will update product amount/stock' do
+      delete :destroy, params: { id: cart.id }
+
+      expect(product.reload.amount).to eq(11)
+      expect { line_item.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { cart.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
