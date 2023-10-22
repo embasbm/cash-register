@@ -3,6 +3,7 @@ class ProductsController < InheritedResources::Base
 
   def index
     @products = Product.all.select { |p| p.amount > 0 }
+    @cart = current_user.cart
     super
   end
 

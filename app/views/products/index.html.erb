@@ -22,10 +22,28 @@
 
 <hr>
 
-<% if current_user.cart %>
+<% if @cart %>
+  <h1>Basket</h1>
   <div id="cart">
+    <div class="lines" >  
+      <% if @cart.line_items.present? %>
+        <table border="0">
+          <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+          </tr>
+          <% @cart.line_items.each do |line_item| %>
+            <tr>
+              <td><%= line_item.product.name %></td>
+              <td><%= line_item.quantity %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+
     <div class="cart" >
-      <strong>Total: <%= current_user.cart.total_amount.to_s %></strong>
+      <strong>Total: <%= @cart.total_amount.to_s %></strong>
     </div>
   </div>
 <% end %>
