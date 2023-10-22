@@ -70,4 +70,24 @@ RSpec.describe CartsController, type: :controller do
       expect { cart.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe '#quantity_to_add' do
+    ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
+      if product_name == 'Green Tea'
+        context 'when the product name is "Green Tea"' do
+          it 'returns 2' do
+            controller.instance_variable_set(:@product, Product.new(name: 'Green Tea'))
+            expect(controller.send(:quantity_to_add)).to eq(2)
+          end
+        end
+      else
+        context 'when the product name is not "Green Tea"' do
+          it 'returns 1' do
+            controller.instance_variable_set(:@product, Product.new(name: 'Black Tea'))
+            expect(controller.send(:quantity_to_add)).to eq(1)
+          end
+        end    
+      end
+    end
+  end
 end

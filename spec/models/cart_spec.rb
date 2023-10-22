@@ -66,7 +66,9 @@ RSpec.describe Cart, type: :model do
 
     ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
       context "when one single #{product_name} in cart" do
-        before { create(:line_item, cart: cart, product: Product.find_by_name(product_name)) }
+        before { create(:line_item, cart: cart, product: Product.find_by_name(product_name), quantity: quantity) }
+
+        let(:quantity) { product_name == 'Green Tea' ? 2 : 1 } 
 
         it 'cart total_amount will be the product value' do
           subject
@@ -86,11 +88,10 @@ RSpec.describe Cart, type: :model do
           elsif product_name == 'Coffee'
             expect(cart.reload.total_amount.to_s).to eq ('4.15') # [311 * 4 - 311 * 4 * 2/3] (311 is the product price)
           else # product_name == 'Green Tea'
-            expect(cart.reload.total_amount.to_s).to eq ('12.44') # [4 * 311] (311 is the product price)
-            expect(line_item.reload.quantity).to eq 8 # We doubling Green Tea; buy one get one free
+            expect(cart.reload.total_amount.to_s).to eq ('6.22') # [4 * 311] (311 is the product price)
           end
         end
       end
     end
-  end  
+  end
 end
