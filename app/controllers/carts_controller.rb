@@ -28,6 +28,8 @@ class CartsController < ApplicationController
 
     @cart.destroy
 
+    flash[:success] = 'Basket emptied successfully'
+
     redirect_to root_path
   end
 
