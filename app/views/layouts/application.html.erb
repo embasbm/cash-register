@@ -21,14 +21,14 @@
       <% end %>
     </nav>
 
-    <div data-controller="flash-messages">
-      <% flash.each do |key, value| %>
-        <turbo-frame id="<%= "flash-frame-#{key}" %>" data-turbo-frame="<%= "flash-frame-#{key}" %>">
+    <div data-controller="flash-messages" data-action="flash-messages#connect">
+      <turbo-frame id="flash-frame-success" data-turbo-frame="flash-frame-success">
+        <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>">
             <%= value %>
           </div>
-        </turbo-frame>
-      <% end %>
+        <% end %>
+      </turbo-frame>
     </div>
 
     <%= yield %>
