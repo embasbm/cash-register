@@ -5,10 +5,10 @@ class CartsController < ApplicationController
   def add_to_cart
     line_item = @cart.line_items.find_by(product: @product)
     if line_item
-      line_item.update!(quantity: line_item.quantity + 1)
+      line_item.update!(quantity: line_item.quantity + quantity_to_add)
       flash[:success] = 'Product quantity added to the cart successfully'
     else
-      @cart.line_items.create!(product: @product, quantity: 1)
+      @cart.line_items.create!(product: @product, quantity: quantity_to_add)
       flash[:success] = 'Product added to the cart successfully'
     end
     update_product_amount
@@ -21,6 +21,11 @@ class CartsController < ApplicationController
   end
 
   private
+
+  def quantity_to_add
+    @product&.name == 'Green Tea' ? 2 : 1
+  end
+
   def set_cart
     @cart = current_user.cart.present? ? current_user.cart : Cart.create!(user: current_user, total_price: 0)
   end
@@ -30,7 +35,7 @@ class CartsController < ApplicationController
   end
 
   def update_product_amount
-    @product.amount -= 1
+    @product.amount -= @product.name == 'Green Tea' ? 2 : 1
     @product.save!
   end
 
