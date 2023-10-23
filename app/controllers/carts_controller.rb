@@ -9,12 +9,13 @@ class CartsController < ApplicationController
       line_item.update!(quantity: line_item.quantity + quantity_to_add)
       flash[:success] = 'Product quantity added to the cart successfully'
     else
-      @cart.line_items.create!(product: @product, quantity: quantity_to_add)
+      @cart.line_items.create!(product: @product, quantity: quantity_to_add, price_cents: quantity_to_add * @product.price_cents)
       flash[:success] = 'Product added to the cart successfully'
     end
+    
     update_product_amount(amont_to_remove_from_product)
   rescue => e
-    flash[:success].clear
+    flash[:success]&.clear
     flash[:error] = e.message
   ensure
     @cart.settle_total_price!

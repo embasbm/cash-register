@@ -27,12 +27,12 @@ RSpec.describe "Carts", type: :request do
     end
 
     context 'when cart already has the product' do
-      before { cart.line_items.create(product: product, quantity: 10) }
+      let!(:line_item) { create(:line_item, cart: cart, product: product, quantity: 10) }
 
       it 'will increase the quantity for this product within the line item' do
         expect {
           subject
-        }.to change { cart.line_items.first.reload.quantity }.from(10).to(11)
+        }.to change { line_item.reload.quantity }.from(10).to(11)
       end
     end
   end

@@ -3,5 +3,6 @@ FactoryBot.define do
     cart { Cart.first }
     product { Product.first }
     quantity { 1 }
+    price_cents { Product.first.price_cents }
   end
 end
