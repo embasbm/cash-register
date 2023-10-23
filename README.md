@@ -27,6 +27,14 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
  - **AdminUser**: admin to manage back office: "admin@example.com" - "password"
  - **User**: user to do the shopping: "user@example.com" - "password"
  
+### Concerns / Questions
+
+Regards understanding the special conditions (rules) to calculate a cart/basket final value, we have hand some presumption that _somehow_ collide with the test data sample prividen:
+1. We *always* add an extra "Green tea" item, when an item ("Green tea") is addded.
+    - Seem that there is a misunderstanding, because sammple #2 and #3 only have one GR1 item.
+    - if the requirement was willing to add en extra green tea item only if the basket has one item and it is a green tea. then we should apply the code in git branch: 'refa/data-test-sample'
+2.  
+
 # Technical Evaluation Amenitiz Problem to Solve
 
 You are the developer in charge of building a cash register. 

@@ -88,7 +88,7 @@ RSpec.describe Cart, type: :model do
           elsif product_name == 'Coffee'
             expect(cart.reload.total_amount.to_s).to eq ('4.15') # [311 * 4 - 311 * 4 * 2/3] (311 is the product price)
           else # product_name == 'Green Tea'
-            expect(cart.reload.total_amount.to_s).to eq ('6.22') # [4 * 311] (311 is the product price)
+            expect(cart.reload.total_amount.to_s).to eq ('9.33') # [(4-1) * 311] (311 is the product price)
           end
         end
       end

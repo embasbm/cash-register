@@ -23,13 +23,13 @@ class Cart < ApplicationRecord
           new_coffee_cost = cost_of_all_coffees - cost_to_drop
           self.total_price += new_coffee_cost
         when 'Green Tea'
-          self.total_price += li.quantity/2 * li.product.price_cents
+          self.total_price += (li.quantity - 1) * li.product.price_cents
         else
           self.total_price += li.quantity * li.product.price_cents
         end
       else
         if li.product.name == 'Green Tea'
-          self.total_price += li.quantity/2 * li.product.price_cents
+          self.total_price += (li.quantity - 1) * li.product.price_cents
         else
           self.total_price += li.quantity * li.product.price_cents
         end

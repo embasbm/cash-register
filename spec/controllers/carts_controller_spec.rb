@@ -72,9 +72,16 @@ RSpec.describe CartsController, type: :controller do
   end
 
   describe '#quantity_to_add' do
+    let!(:cart) { create(:cart, user: user) }
+    let!(:line_item) { create(:line_item, cart: cart, product: product) }
+
+    before { controller.instance_variable_set(:@cart, cart) }
+
     ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
       if product_name == 'Green Tea'
         context 'when the product name is "Green Tea"' do
+          before { line_item.destroy }
+
           it 'returns 2' do
             controller.instance_variable_set(:@product, Product.new(name: 'Green Tea'))
             expect(controller.send(:quantity_to_add)).to eq(2)
@@ -83,10 +90,19 @@ RSpec.describe CartsController, type: :controller do
       else
         context 'when the product name is not "Green Tea"' do
           it 'returns 1' do
-            controller.instance_variable_set(:@product, Product.new(name: 'Black Tea'))
+            controller.instance_variable_set(:@product, product)
             expect(controller.send(:quantity_to_add)).to eq(1)
           end
         end    
+      end
+
+      context 'when cart has more line items' do
+        let!(:line_item_2) { create(:line_item, cart: cart) }
+
+        it 'returns 1' do
+          controller.instance_variable_set(:@product, product)
+          expect(controller.send(:quantity_to_add)).to eq(1)
+        end
       end
     end
   end
