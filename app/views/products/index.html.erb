@@ -33,7 +33,7 @@
               <th>Quantity</th>
               <th>Price</th>
           </tr>
-          <% @cart.line_items.each do |line_item| %>
+          <% @cart.line_items.order(:created_at).each do |line_item| %>
             <tr class="<%= line_item.has_offer ? 'discount' : '' %>">
               <td><%= line_item.product.name %></td>
               <td><%= line_item.quantity %></td>
