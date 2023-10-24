@@ -37,58 +37,37 @@ RSpec.describe Cart, type: :model do
     end
   end
 
-  describe "before_create callback" do
+  describe '#settle_total_price!' do
     let!(:product) { create(:product) }
     let!(:line_item) { create(:line_item, product: product, cart: cart, quantity: 2) }
 
-    it 'calculates the total price correctly' do
-      cart.line_items << line_item
-      cart.save
-      expect(cart.reload.total_price).to eq(2*product.price_cents)
-    end
-
-    context 'line_items has not changed' do
-      it 'will not call the #calculate_total_price' do
-        expect(cart).not_to receive(:calculate_total_price)
-        cart.save
+    it 'will execute set_line_cost instance method on each line item' do
+      cart.settle_total_price! do
+        expect(line_item).to receive(:set_line_cost!)
       end
     end
   end
 
-  describe '#settle_total_price' do
-    before do
-      ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
-        create(:product, name: product_name)
-      end
-    end
+  describe '#check_green_tea_rule' do
+    context 'when cart has only one green tea item' do
+      let!(:green_tea) { create(:product, name: 'Green Tea') }
+      let!(:green_tea_line) { create(:line_item, product: green_tea, cart: cart, quantity: 1) }
 
-    subject { cart.settle_total_price! }
-
-    ['Coffee', 'Strawberries', 'Green Tea'].map do |product_name|
-      context "when one single #{product_name} in cart" do
-        before { create(:line_item, cart: cart, product: Product.find_by_name(product_name), quantity: quantity) }
-
-        let(:quantity) { product_name == 'Green Tea' ? 2 : 1 } 
-
-        it 'cart total_amount will be the product value' do
-          subject
-
-          expect(cart.reload.total_price).to eq Product.find_by_name(product_name).price_cents
+      it 'will apply the green tea offer buy-one-get-one-free' do
+        cart.send(:check_green_tea_rule) do
+          expect { green_tea_line.quantity }.to change from(1).to(2)
+          expect(green_tea_line.reload.has_offer).to be(true)
         end
       end
 
-      context "when 4 #{product_name} item in cart" do
-        let!(:line_item) { create(:line_item, cart: cart, product: Product.find_by_name(product_name), quantity: 4) }
-
-        it 'cart total_amount will be the product value' do
-          subject
-
-          if product_name == 'Strawberries'
-            expect(cart.reload.total_amount.to_s).to eq ('18.00') # [4 * 450] (450 is the new price when quantity 3 or more)
-          elsif product_name == 'Coffee'
-            expect(cart.reload.total_amount.to_s).to eq ('4.15') # [311 * 4 - 311 * 4 * 2/3] (311 is the product price)
-          else # product_name == 'Green Tea'
-            expect(cart.reload.total_amount.to_s).to eq ('9.33') # [(4-1) * 311] (311 is the product price)
+      context 'when another product added to one single green tea item' do
+        let!(:strawberries) { create(:product, name: 'Strawberries') }
+        let!(:green_tea_line) { create(:line_item, product: green_tea, cart: cart, quantity: 1) }
+  
+        it 'will remove green tea offer' do
+          cart.send(:check_green_tea_rule) do
+            expect { green_tea_line.quantity }.to change from(2).to(1)
+            expect(green_tea.has_offer).to be(false)
           end
         end
       end

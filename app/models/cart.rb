@@ -1,42 +1,13 @@
 class Cart < ApplicationRecord
   belongs_to :user
-  has_many :line_items,
-    dependent: :destroy,
-    before_add: :calculate_total_price,
-    before_remove: :calculate_total_price
+  has_many :line_items, dependent: :destroy
 
   monetize :total_price, as: "total_amount"
 
-  before_create :calculate_total_price, if: :line_items_changed?
-
   def settle_total_price!
-    self.total_price = 0
-
-    line_items.includes(:product).each do |li|
-      if li.quantity >= 3
-        case li.product.name
-        when 'Strawberries'
-          self.total_price += li.quantity * 450
-        when 'Coffee'
-          cost_of_all_coffees = li.quantity * li.product.price_cents
-          cost_to_drop = cost_of_all_coffees * 2 / 3
-          new_coffee_cost = cost_of_all_coffees - cost_to_drop
-          self.total_price += new_coffee_cost
-        when 'Green Tea'
-          self.total_price += (li.quantity - 1) * li.product.price_cents
-        else
-          self.total_price += li.quantity * li.product.price_cents
-        end
-      else
-        if li.product.name == 'Green Tea'
-          self.total_price += (li.quantity - 1) * li.product.price_cents
-        else
-          self.total_price += li.quantity * li.product.price_cents
-        end
-      end
-    end
-
-    save!
+    line_items.each { |li| li.set_line_cost! }
+    check_green_tea_rule
+    update!(total_price: line_items.sum(:price_cents))
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -49,11 +20,17 @@ class Cart < ApplicationRecord
 
   private
 
-  def calculate_total_price(line_item = nil)
-    if line_item
-      self.total_price = total_price + (line_item.product.price_cents * line_item.quantity)
-    else
-      self.total_price = line_items.sum { |li| li.product.price_cents * li.quantity }
+  def check_green_tea_rule
+    if line_items.count == 1 && line_items.first.product.name == 'Green Tea' && line_items.first.quantity == 1
+      line_items.first.update(quantity: 2, has_offer: true)
+      line_items.first.product.remove_stock!
+    elsif line_items.count > 1 && line_items.any? {|li| li.product.name == 'Green Tea' }
+      green_tea_line = line_items.find { |li| li.product.name == 'Green Tea' }
+      if green_tea_line.has_offer
+        green_tea_line.update(quantity: 1, has_offer: false)
+        green_tea_line.product.add_stock!
+      end
+      green_tea_line.set_line_cost!
     end
   end
 
