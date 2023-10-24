@@ -54,3 +54,7 @@ nav a {
 .cart {
   text-align: right;
 }
+
+.discount {
+  color: green; 
+}
