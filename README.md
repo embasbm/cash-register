@@ -6,7 +6,7 @@
 4. ```rails assets:precompile```
 5. ```rails s``` and check  http://127.0.0.1:3000/ for results
 6. To run the specs/tests locally: 
-    - ```rspec```
+    - ```rspec```, might need to run ```rake db:test:prepare``` before.
 
 
 ### Infrastructure choice
