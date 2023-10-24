@@ -15,7 +15,7 @@ RSpec.describe LineItem, type: :model do
 
   describe '#set_line_cost!' do
     context 'when Strawberries product' do
-      let!(:strawberries) { create(:product, name: 'Strawberries') }
+      let!(:strawberries) { create(:product, code: 'SR1', name: 'Green Tea') }
 
       context 'and 3 items in basket' do
         let!(:strawberries_line_item) { create(:line_item, quantity: 3, product: strawberries) }
@@ -32,7 +32,7 @@ RSpec.describe LineItem, type: :model do
     end
 
     context 'when Coffee product' do
-      let!(:coffee) { create(:product, name: 'Coffee', price_cents: 300) }
+      let!(:coffee) { create(:product, code: 'CF1', name: 'Green Tea', price_cents: 300) }
 
       context 'and 3 items in basket' do
         let!(:coffee_line_item) { create(:line_item, quantity: 3, product: coffee) }
@@ -49,7 +49,7 @@ RSpec.describe LineItem, type: :model do
     end
 
     context 'when Green Tea product' do
-      let!(:green_tea) { create(:product, name: 'Green Tea', price_cents: 300) }
+      let!(:green_tea) { create(:product, code: 'GR1', name: 'Green Tea', price_cents: 300) }
 
       context 'and items count is 2' do
         let!(:green_tea_line_item) { create(:line_item, quantity: 2, product: green_tea, has_offer: true) }

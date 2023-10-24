@@ -9,18 +9,18 @@ class LineItem < ApplicationRecord
   def set_line_cost!
     price_to_apply = product.price_cents * quantity
     has_offer = self.has_offer
-    case product.name
-    when 'Strawberries'
+    case product.code
+    when 'SR1'
       if quantity >= 3
         price_to_apply = STRAWBERRY_OFFER_PRICE * quantity 
         has_offer = true
       end
-    when 'Coffee'
+    when 'CF1'
       if quantity >= 3
         price_to_apply = quantity * product.price_cents * 2 / 3
         has_offer = true
       end
-    when 'Green Tea'
+    when 'GR1'
       has_offer = false if quantity != 2
     end
 

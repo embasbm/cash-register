@@ -21,11 +21,11 @@ class Cart < ApplicationRecord
   private
 
   def check_green_tea_rule
-    if line_items.count == 1 && line_items.first.product.name == 'Green Tea' && line_items.first.quantity == 1
+    if line_items.count == 1 && line_items.first.product.code == 'GR1' && line_items.first.quantity == 1
       line_items.first.update(quantity: 2, has_offer: true)
       line_items.first.product.remove_stock!
-    elsif line_items.count > 1 && line_items.any? {|li| li.product.name == 'Green Tea' }
-      green_tea_line = line_items.find { |li| li.product.name == 'Green Tea' }
+    elsif line_items.count > 1 && line_items.any? {|li| li.product.code == 'GR1' }
+      green_tea_line = line_items.find { |li| li.product.code == 'GR1' }
       if green_tea_line.has_offer
         green_tea_line.update(quantity: 1, has_offer: false)
         green_tea_line.product.add_stock!

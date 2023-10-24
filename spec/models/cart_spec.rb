@@ -50,7 +50,7 @@ RSpec.describe Cart, type: :model do
 
   describe '#check_green_tea_rule' do
     context 'when cart has only one green tea item' do
-      let!(:green_tea) { create(:product, name: 'Green Tea') }
+      let!(:green_tea) { create(:product, code: 'GR1', name: 'Green Tea') }
       let!(:green_tea_line) { create(:line_item, product: green_tea, cart: cart, quantity: 1) }
 
       it 'will apply the green tea offer buy-one-get-one-free' do
@@ -61,7 +61,7 @@ RSpec.describe Cart, type: :model do
       end
 
       context 'when another product added to one single green tea item' do
-        let!(:strawberries) { create(:product, name: 'Strawberries') }
+        let!(:strawberries) { create(:product, code: 'SR1', name: 'Green Tea') }
         let!(:green_tea_line) { create(:line_item, product: green_tea, cart: cart, quantity: 1) }
   
         it 'will remove green tea offer' do
