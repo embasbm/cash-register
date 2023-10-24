@@ -5,6 +5,7 @@ class LineItem < ApplicationRecord
   monetize :price_cents
 
   STRAWBERRY_OFFER_PRICE = 450
+  COFEE_DROPPED_PRICE = 2 / 3.0
 
   def set_line_cost!
     price_to_apply = product.price_cents * quantity
@@ -17,7 +18,7 @@ class LineItem < ApplicationRecord
       end
     when 'CF1'
       if quantity >= 3
-        price_to_apply = quantity * product.price_cents * 2 / 3
+        price_to_apply = quantity * product.price_cents * COFEE_DROPPED_PRICE
         has_offer = true
       end
     when 'GR1'

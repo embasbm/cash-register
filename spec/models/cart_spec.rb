@@ -61,7 +61,7 @@ RSpec.describe Cart, type: :model do
       end
 
       context 'when another product added to one single green tea item' do
-        let!(:strawberries) { create(:product, code: 'SR1', name: 'Green Tea') }
+        let!(:green_tea) { create(:product, code: 'GR1', name: 'Green Tea') }
         let!(:green_tea_line) { create(:line_item, product: green_tea, cart: cart, quantity: 1) }
   
         it 'will remove green tea offer' do
