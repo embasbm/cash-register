@@ -4,16 +4,24 @@ class CartsController < ApplicationController
 
   def add_to_cart
     line_item = @cart.line_items.find_by(product: @product)
-    amont_to_remove_from_product = quantity_to_add
     if line_item
-      line_item.update!(quantity: line_item.quantity + quantity_to_add)
+      line_item.update!(
+        quantity: line_item.quantity + 1,
+        price_cents: line_item.price_cents + @product.price_cents
+      )
+
       flash[:success] = 'Product quantity added to the cart successfully'
     else
-      @cart.line_items.create!(product: @product, quantity: quantity_to_add, price_cents: quantity_to_add * @product.price_cents)
+      @cart.line_items.create!(
+        product: @product,
+        quantity: 1,
+        price_cents: @product.price_cents
+      )
+
       flash[:success] = 'Product added to the cart successfully'
     end
     
-    update_product_amount(amont_to_remove_from_product)
+    @product.remove_stock!
   rescue => e
     flash[:success]&.clear
     flash[:error] = e.message
@@ -37,22 +45,12 @@ class CartsController < ApplicationController
 
   private
 
-  def quantity_to_add
-    return 2 if @product&.name == 'Green Tea' && @cart&.line_items&.blank?
-    1
-  end
-
   def set_cart
     @cart = current_user.cart.present? ? current_user.cart : Cart.create!(user: current_user, total_price: 0)
   end
 
   def set_product
     @product = Product.find(params[:product_id])
-  end
-
-  def update_product_amount(amount)
-    @product.amount -= amount
-    @product.save!
   end
 
   def carts_params
