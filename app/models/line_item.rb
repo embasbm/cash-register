@@ -4,6 +4,29 @@ class LineItem < ApplicationRecord
   
   monetize :price_cents
 
+  STRAWBERRY_OFFER_PRICE = 450
+
+  def set_line_cost!
+    price_to_apply = product.price_cents * quantity
+    has_offer = self.has_offer
+    case product.name
+    when 'Strawberries'
+      if quantity >= 3
+        price_to_apply = STRAWBERRY_OFFER_PRICE * quantity 
+        has_offer = true
+      end
+    when 'Coffee'
+      if quantity >= 3
+        price_to_apply = quantity * product.price_cents * 2 / 3
+        has_offer = true
+      end
+    when 'Green Tea'
+      has_offer = false if quantity != 2
+    end
+
+    update!(price_cents: price_to_apply, has_offer: has_offer)
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["cart_id", "created_at", "id", "product_id", "quantity", "updated_at"]
   end
