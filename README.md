@@ -6,6 +6,7 @@ You must have Ruby **"3.0.0"** and rails **"7.0.8"**. Git pull the repo and with
 3. ```bin/rails db:migrate```
 4. ```rails assets:precompile```
 5. ```rails s``` and check  http://127.0.0.1:3000/ for results
+    * http://127.0.0.1:3000/admin to access the admin panel
 6. To run the specs/tests locally: 
     - ```rspec```, might need to run ```rake db:test:prepare``` before.
 
@@ -32,39 +33,39 @@ Pack to make testing easier. Might not use some of them, but it's not hassle to 
 
 Summarized and taken in account only those having `feat` prefix.
 
-Defined the cart model with basic fields and specs.
-Ensured proper display of price values converted from cents to decimal amounts.
-Added an "amount" field to the product to control stock.
-Established a basic inner association between the cart and product.
-Added basic templating for the product list.
-Implemented user and admin user roles with basic unit tests.
-Required system users to log in first to access the product index page.
-Added a foreign key from the cart to the user through a migration.
-Established an association to link the cart to the user.
-Created a new action on the cart controller to add products to the cart.
-Implemented a callback on save for the cart to calculate the total price.
-Calculated the total price only when cart lines have changes.
-Added a button to add products to the cart.
-Added flash messages when a product is added to the cart.
-Ensured that a product must not have a negative quantity.
-Products out of stock are not displayed.
-Added a customer message when no products are available.
-Implemented basic styling for authentication templates.
-Fetched products with available stock.
-Displayed the total current cart amount.
-Settled the cart's total price after adding a product.
-Showed cart lines in a disclosed format.
-Added functionality to reset the cart.
-Maintained cart lines in order.
-Introduced some basic styling.
-Added an alert message for when the cart is emptied.
-Implemented styling and flash messages with a 5-second duration.
-Added an extra Green Tea only if the cart has no other products.
-Migrated to have prices per line within the cart.
-Introduced a new field and fixed specs.
-Maintained cart lines in order.
-Applied a Green Tea rule at the cart level.
-Settled line prices at the line item level.
-Moved basic instance methods to the product model.
-Switched to using product codes instead of product names for logic.
-Added a constant for Coffee discount percentage.
+- Defined the cart model with basic fields and specs.
+- Ensured proper display of price values converted from cents to decimal amounts.
+- Added an "amount" field to the product to control stock.
+- Established a basic inner association between the cart and product.
+- Added basic templating for the product list.
+- Implemented user and admin user roles with basic unit tests.
+- Required system users to log in first to access the product index page.
+- Added a foreign key from the cart to the user through a migration.
+- Established an association to link the cart to the user.
+- Created a new action on the cart controller to add products to the cart.
+- Implemented a callback on save for the cart to calculate the total price.
+- Calculated the total price only when cart lines have changes.
+- Added a button to add products to the cart.
+- Added flash messages when a product is added to the cart.
+- Ensured that a product must not have a negative quantity.
+- Products out of stock are not displayed.
+- Added a customer message when no products are available.
+- Implemented basic styling for authentication templates.
+- Fetched products with available stock.
+- Displayed the total current cart amount.
+- Settled the cart's total price after adding a product.
+- Showed cart lines in a disclosed format.
+- Added functionality to reset the cart.
+- Maintained cart lines in order.
+- Introduced some basic styling.
+- Added an alert message for when the cart is emptied.
+- Implemented styling and flash messages with a 5-second duration.
+- Added an extra Green Tea only if the cart has no other products.
+- Migrated to have prices per line within the cart.
+- Introduced a new field and fixed specs.
+- Maintained cart lines in order.
+- Applied a Green Tea rule at the cart level.
+- Settled line prices at the line item level.
+- Moved basic instance methods to the product model.
+- Switched to using product codes instead of product names for logic.
+- Added a constant for Coffee discount percentage.
